@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "outDir": "dist"
-  },
-  "exclude": ["node_modules", "dist"],
-  "extends": "@awfe/typescript-config/solid-library.json",
-  "include": ["src"]
-}

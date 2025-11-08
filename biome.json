@@ -86,15 +86,7 @@
       }
     },
     {
-      "includes": ["apps/host/**"],
-      "linter": {
-        "domains": {
-          "solid": "all"
-        }
-      }
-    },
-    {
-      "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+      "includes": ["**/*.astro"],
       "linter": {
         "rules": {
           "correctness": {

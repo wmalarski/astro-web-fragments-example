@@ -1,8 +1,0 @@
-{
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "compilerOptions": {
-    "jsx": "preserve",
-    "jsxImportSource": "solid-js"
-  },
-  "extends": "./base.json"
-}
