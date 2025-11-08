@@ -8,7 +8,7 @@ export default function Home() {
       <Title>Hello World</Title>
       <h1>Hello world!</h1>
       <Counter />
-      <WebFragment fragmentId="homepage-2" />
+      <WebFragment fragmentId="homepage-2" src="/" />
       <p>
         Visit{" "}
         <a href="https://start.solidjs.com" rel="noopener" target="_blank">

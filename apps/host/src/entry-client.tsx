@@ -1,4 +1,11 @@
 // @refresh reload
 import { mount, StartClient } from "@solidjs/start/client";
+import { initializeWebFragments } from "web-fragments";
 
-mount(() => <StartClient />, document.getElementById("app")!);
+const app = document.getElementById("app");
+
+if (app) {
+  mount(() => <StartClient />, app);
+}
+
+initializeWebFragments();

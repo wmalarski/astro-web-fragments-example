@@ -1,8 +1,6 @@
 import type { PagesFunction } from "@cloudflare/workers-types";
 import { FragmentGateway, getWebMiddleware } from "web-fragments/gateway";
 
-console.log("PAGES");
-
 // Initialize the FragmentGateway
 const gateway = new FragmentGateway({
   piercingStyles: `<style id="fragment-piercing-styles" type="text/css">
@@ -52,7 +50,7 @@ gateway.registerFragment({
     };
   },
   piercingClassNames: ["homepage"],
-  routePatterns: ["/", "/about", "/_fragment/homepage/:_*"],
+  routePatterns: ["/", "/_fragment/homepage/:_*"],
 });
 
 const middleware = getWebMiddleware(gateway, { mode: "development" });

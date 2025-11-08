@@ -5,7 +5,7 @@ import type { PluginOption } from "vite";
 export default defineConfig({
   server: {
     compatibilityDate: "2025-11-07",
-    preset: "cloudflare-pages",
+    preset: "cloudflare-pages-static",
   },
   vite: {
     plugins: [wranglerPagesDevWithReload()],

@@ -17,6 +17,7 @@
     "check-types": "turbo run check-types",
     "clear": "turbo run clear && rm -rf node_modules",
     "dev": "turbo run dev",
+    "preview": "turbo run preview",
     "start": "turbo run start"
   }
 }

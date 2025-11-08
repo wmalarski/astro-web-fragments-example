@@ -4,14 +4,18 @@ type WebFragmentId = "homepage" | "homepage-2";
 
 type WebFragmentProps = {
   fragmentId: WebFragmentId;
+  src?: string;
 };
 
 export const WebFragment: Component<WebFragmentProps> = (props) => {
-  return <web-fragment fragment-id={props.fragmentId} />;
+  return (
+    <web-fragment attr:fragment-id={props.fragmentId} attr:src={props.src} />
+  );
 };
 
 type WebFragmentElementProps = {
-  "fragment-id": WebFragmentId;
+  "attr:fragment-id": WebFragmentId;
+  "attr:src"?: string;
 };
 
 declare module "solid-js" {
