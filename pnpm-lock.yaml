@@ -42,6 +42,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@awfe/paths':
+        specifier: workspace:*
+        version: link:../../packages/paths
       '@opennextjs/cloudflare':
         specifier: ^1.11.1
         version: 1.11.1(wrangler@4.46.0(@cloudflare/workers-types@4.20251107.0))
@@ -91,6 +94,15 @@ importers:
       wrangler:
         specifier: ^4.46.0
         version: 4.46.0(@cloudflare/workers-types@4.20251107.0)
+
+  packages/paths:
+    devDependencies:
+      '@awfe/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
 
   packages/tailwind-config:
     devDependencies:

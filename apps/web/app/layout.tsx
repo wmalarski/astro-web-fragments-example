@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import type { PropsWithChildren } from "react";
+import { Navbar } from "../modules/layout/navbar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -7,20 +8,16 @@ export const metadata: Metadata = {
   title: "Create Next App",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body>
-        <main>
-          <span className="font-bold text-3xl underline">Hello</span>
-          <Link href="/">Home</Link>
-          <Link href="/search">Search</Link>
-          {children}
-        </main>
+      <body className="bg-base-200" data-theme="dark">
+        <div className="flex h-screen w-screen flex-col-reverse md:flex-row">
+          <Navbar />
+          <main className="w-full max-w-full overflow-x-hidden">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
