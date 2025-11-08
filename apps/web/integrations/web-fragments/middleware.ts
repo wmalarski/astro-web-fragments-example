@@ -1,4 +1,5 @@
 import { FragmentGateway, getWebMiddleware } from "web-fragments/gateway";
+import type { FragmentId } from "./types";
 
 // Initialize the FragmentGateway
 const gateway = new FragmentGateway({
@@ -10,33 +11,40 @@ const gateway = new FragmentGateway({
   </style>`,
 });
 
-gateway.registerFragment({
-  endpoint: "http://localhost:3001",
-  forwardFragmentHeaders: ["x-fragment-name"],
-  fragmentId: "homepage",
-  onSsrFetchError: () => ({
-    response: new Response("<p>Qwik fragment not found</p>", {
-      headers: { "content-type": "text/html" },
-    }),
-  }),
-  piercingClassNames: ["homepage"],
-  routePatterns: ["/homepage/:_*", "/_fragment/homepage/:_*"],
-});
+type RegistrationEntry = {
+  fragmentId: FragmentId;
+  routePattern: string;
+};
 
-gateway.registerFragment({
-  endpoint: "http://localhost:3001",
-  forwardFragmentHeaders: ["x-fragment-name"],
-  fragmentId: "homepage-2",
-  onSsrFetchError: (req, error) => {
-    console.log("[req, error]", { error, req });
-    return {
-      response: new Response("<p>Qwik fragment not found</p>", {
-        headers: { "content-type": "text/html" },
-      }),
-    };
-  },
-  piercingClassNames: ["homepage"],
-  routePatterns: ["/", "/_fragment/homepage/:_*"],
+const entries: RegistrationEntry[] = [
+  { fragmentId: "genre-movie", routePattern: "/genre/:genreId/movie" },
+  { fragmentId: "genre-tv", routePattern: "/genre/:genreId/tv" },
+  { fragmentId: "movie", routePattern: "/movie/:movieId" },
+  { fragmentId: "movies-category", routePattern: "/movie/categories/:name" },
+  { fragmentId: "movies", routePattern: "/movie" },
+  { fragmentId: "person", routePattern: "/person/:personId" },
+  { fragmentId: "search", routePattern: "/search" },
+  { fragmentId: "tv", routePattern: "/tv/:tvId" },
+  { fragmentId: "tvs-category", routePattern: "/tv/categories/:name" },
+  { fragmentId: "tvs", routePattern: "/tv" },
+  { fragmentId: "homepage", routePattern: "/" },
+];
+
+entries.forEach((entry) => {
+  gateway.registerFragment({
+    endpoint: "http://localhost:3001",
+    fragmentId: entry.fragmentId,
+    onSsrFetchError() {
+      const body = `<p>${entry.fragmentId} fragment not found</p>`;
+      return {
+        response: new Response(body, {
+          headers: { "content-type": "text/html" },
+        }),
+      };
+    },
+    piercingClassNames: ["homepage"],
+    routePatterns: [entry.routePattern, "/_fragment/astro/:_*"],
+  });
 });
 
 export const webFragmentsMiddleware = getWebMiddleware(gateway, {

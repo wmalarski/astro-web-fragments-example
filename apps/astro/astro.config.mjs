@@ -2,11 +2,9 @@
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
-// https://astro.build/config
 export default defineConfig({
   build: {
-    assets: "_fragment/homepage/assets",
-    // assetsPrefix: "_fragment/homepage/assets",
+    assets: "_fragment/astro/assets",
   },
   vite: {
     plugins: [tailwindcss()],
