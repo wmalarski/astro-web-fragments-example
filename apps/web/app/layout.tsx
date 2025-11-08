@@ -13,7 +13,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <main>
+          <span className="font-bold text-3xl underline">Hello</span>
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
