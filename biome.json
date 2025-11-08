@@ -16,7 +16,11 @@
     }
   },
   "files": {
-    "includes": ["**", "!apps/host/worker-configuration.d.ts"]
+    "includes": [
+      "**",
+      "!apps/host/worker-configuration.d.ts",
+      "!apps/web/cloudflare-env.d.ts"
+    ]
   },
   "formatter": {
     "enabled": true,

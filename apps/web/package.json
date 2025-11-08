@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.11.1",
     "next": "^16.0.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
@@ -9,14 +10,18 @@
     "@types/node": "^24.10.0",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "wrangler": "^4.46.0"
   },
   "name": "@awfe/web",
   "private": true,
   "scripts": {
     "build": "next build",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
     "check-types": "next typegen && tsc --noEmit",
-    "dev": "next dev --port 3002",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "dev": "next dev --turbopack --port 3002",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "start": "next start"
   },
   "type": "module",
