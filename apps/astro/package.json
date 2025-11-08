@@ -4,6 +4,9 @@
     "astro": "^5.15.4",
     "tailwindcss": "^4.1.17"
   },
+  "devDependencies": {
+    "@awfe/tailwind-config": "workspace:*"
+  },
   "name": "@awfe/astro",
   "scripts": {
     "astro": "astro",

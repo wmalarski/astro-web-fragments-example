@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "tailwindcss": "^4.1.17"
+  },
+  "exports": {
+    ".": "./shared-styles.css"
+  },
+  "name": "@awfe/tailwind-config",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0"
+}
