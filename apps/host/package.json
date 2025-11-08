@@ -12,8 +12,8 @@
   "name": "@awfe/host",
   "scripts": {
     "build": "vinxi build",
-    "dev": "vinxi dev",
-    "start": "vinxi start",
+    "dev": "vinxi dev --port=3000",
+    "start": "vinxi start --port=3000",
     "version": "vinxi version"
   },
   "type": "module"
