@@ -1,15 +1,15 @@
 {
   "dependencies": {
-    "next": "^16.0.0",
+    "next": "^16.0.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@awfe/typescript-config": "workspace:*",
-    "@types/node": "^22.15.3",
+    "@types/node": "^24.10.0",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
-    "typescript": "5.9.2"
+    "typescript": "5.9.3"
   },
   "name": "@awfe/web",
   "private": true,

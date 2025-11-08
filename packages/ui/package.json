@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "solid-js": "^1.9.5"
+    "solid-js": "^1.9.10"
   },
   "devDependencies": {
     "@awfe/typescript-config": "workspace:*",
-    "@types/node": "^22.15.3",
-    "typescript": "5.9.2"
+    "@types/node": "^24.10.0",
+    "typescript": "5.9.3"
   },
   "exports": {
     "./*": "./src/*.tsx"
