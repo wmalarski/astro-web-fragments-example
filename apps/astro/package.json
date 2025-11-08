@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "astro": "^5.15.4"
+    "@tailwindcss/vite": "^4.1.17",
+    "astro": "^5.15.4",
+    "tailwindcss": "^4.1.17"
   },
   "name": "@awfe/astro",
   "scripts": {
