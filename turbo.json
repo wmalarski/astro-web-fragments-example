@@ -4,7 +4,7 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["dist/**", ".vinxi/**"]
+      "outputs": ["dist/**", ".vinxi/**", ".output/**"]
     },
     "check-types": {
       "dependsOn": ["^check-types"]

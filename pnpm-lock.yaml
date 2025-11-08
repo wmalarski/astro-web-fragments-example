@@ -41,16 +41,25 @@ importers:
       vinxi:
         specifier: ^0.5.7
         version: 0.5.8(@types/node@22.15.3)(db0@0.3.4)(ioredis@5.8.2)(jiti@2.6.1)(terser@5.44.1)
+      web-fragments:
+        specifier: ^0.8.2
+        version: 0.8.2
     devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20251107.0
+        version: 4.20251107.0
       '@types/node':
         specifier: ^22.15.3
         version: 22.15.3
       nitropack:
         specifier: ^2.12.9
         version: 2.12.9
+      vite:
+        specifier: 6.4.1
+        version: 6.4.1(@types/node@22.15.3)(jiti@2.6.1)(terser@5.44.1)
       wrangler:
         specifier: ^4.46.0
-        version: 4.46.0
+        version: 4.46.0(@cloudflare/workers-types@4.20251107.0)
 
   packages/typescript-config: {}
 
@@ -325,6 +334,9 @@ packages:
     engines: {node: '>=16'}
     cpu: [x64]
     os: [win32]
+
+  '@cloudflare/workers-types@4.20251107.0':
+    resolution: {integrity: sha512-4y3U2kDxzAMKthjx6iIlxY2oA3l5FVP1WR2Zkz1j0Cx0RI5P1DZknSV5WP86i2anE5eal+pmtzvCO4oZWgcgtA==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -3456,6 +3468,9 @@ packages:
       vite:
         optional: true
 
+  web-fragments@0.8.2:
+    resolution: {integrity: sha512-VyvTGiTdnnUuUIHHKNxyuvODl44GCLhiiGNjWHhuuLaTN12ET1ICWX46Boa/ROCcOIff38FYlczPXHDDR8EpGg==}
+
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
 
@@ -3464,6 +3479,9 @@ packages:
 
   webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
+
+  wf-htmlrewriter@0.0.13:
+    resolution: {integrity: sha512-ymlCpT94FPRo1eHGOoFgoLQfdJwofayAumP9Bcxl6XBZaoR0Qk1kAIvhsfXY1PADZs1Y6crbujQC8LnaMUi0OQ==}
 
   whatwg-url@5.0.0:
     resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
@@ -3899,6 +3917,8 @@ snapshots:
 
   '@cloudflare/workerd-windows-64@1.20251105.0':
     optional: true
+
+  '@cloudflare/workers-types@4.20251107.0': {}
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -7424,11 +7444,17 @@ snapshots:
     optionalDependencies:
       vite: 6.4.1(@types/node@22.15.3)(jiti@2.6.1)(terser@5.44.1)
 
+  web-fragments@0.8.2:
+    dependencies:
+      htmlrewriter: wf-htmlrewriter@0.0.13
+
   web-namespaces@2.0.1: {}
 
   webidl-conversions@3.0.1: {}
 
   webpack-virtual-modules@0.6.2: {}
+
+  wf-htmlrewriter@0.0.13: {}
 
   whatwg-url@5.0.0:
     dependencies:
@@ -7457,7 +7483,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20251105.0
       '@cloudflare/workerd-windows-64': 1.20251105.0
 
-  wrangler@4.46.0:
+  wrangler@4.46.0(@cloudflare/workers-types@4.20251107.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.0
       '@cloudflare/unenv-preset': 2.7.9(unenv@2.0.0-rc.24)(workerd@1.20251105.0)
@@ -7468,6 +7494,7 @@ snapshots:
       unenv: 2.0.0-rc.24
       workerd: 1.20251105.0
     optionalDependencies:
+      '@cloudflare/workers-types': 4.20251107.0
       fsevents: 2.3.3
     transitivePeerDependencies:
       - bufferutil
