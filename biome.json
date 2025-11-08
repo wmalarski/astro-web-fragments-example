@@ -25,7 +25,6 @@
   },
   "linter": {
     "domains": {
-      "solid": "all",
       "tailwind": "all"
     },
     "enabled": true,
@@ -74,6 +73,22 @@
     }
   },
   "overrides": [
+    {
+      "includes": ["apps/web/**"],
+      "linter": {
+        "domains": {
+          "react": "all"
+        }
+      }
+    },
+    {
+      "includes": ["apps/host/**"],
+      "linter": {
+        "domains": {
+          "solid": "all"
+        }
+      }
+    },
     {
       "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
       "linter": {
