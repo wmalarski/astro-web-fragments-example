@@ -1,4 +1,6 @@
 import Image, { type ImageProps } from "next/image";
+import "../integrations/web-fragments/init-web-fragments";
+import { WebFragment } from "../integrations/web-fragments/web-fragment";
 import styles from "./page.module.css";
 
 type Props = Omit<ImageProps, "src"> & {
@@ -21,6 +23,7 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
+        <WebFragment fragmentId="homepage-2" src="/" />
         <ThemeImage
           alt="Turborepo logo"
           className={styles.logo}
