@@ -1,21 +1,46 @@
 ---
+import {
+  getRandomMedia,
+  getTMDBContext,
+  getTrendingMovie,
+  getTrendingTv,
+} from "../integrations/tmdb/services";
+import type { MovieBase, TvBase } from "../integrations/tmdb/types";
 import Layout from "../layouts/Layout.astro";
 
 export const prerender = false;
+
+const getData = async () => {
+  const context = getTMDBContext();
+
+  const [movies, tv] = await Promise.all([
+    getTrendingMovie({ context, page: 1 }),
+    getTrendingTv({ context, page: 1 }),
+  ]);
+
+  const random = getRandomMedia<MovieBase | TvBase>({
+    collections: [tv, movies],
+  });
+
+  return { movies, random, tv };
+};
+
+const { movies, random, tv } = await getData();
 ---
 
 <Layout>
-	<button class="alert font-bold underline">Click me!</button>
+  <button class="alert font-bold underline">Click me!</button>
+  <pre>{JSON.stringify({movies, random, tv}, null, 2)}</pre>
 </Layout>
 
 <script is:inline={false}>
   // Find all buttons with the `alert` class on the page.
-  const buttons = document.querySelectorAll('button.alert');
+  const buttons = document.querySelectorAll("button.alert");
 
   // Handle clicks on each button.
   buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-      alert('Button was clicked!');
+    button.addEventListener("click", () => {
+      alert("Button was clicked!");
     });
   });
 </script>
