@@ -1,5 +1,5 @@
 {
-  "name": "my-turborepo",
+  "name": "astro-web-fragments-example",
   "private": true,
   "scripts": {
     "build": "turbo run build",
