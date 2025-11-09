@@ -1,6 +1,7 @@
 // @ts-check
 
 import node from "@astrojs/node";
+import solidJs from "@astrojs/solid-js";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField } from "astro/config";
 
@@ -14,6 +15,7 @@ export default defineConfig({
       TMDB_API_KEY: envField.string({ access: "public", context: "server" }),
     },
   },
+  integrations: [solidJs()],
   vite: {
     plugins: [tailwindcss()],
   },
