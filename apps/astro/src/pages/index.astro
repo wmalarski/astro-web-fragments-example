@@ -64,6 +64,10 @@ const { movies, random, tv } = await getData();
     <Footer />
   </div>
   <button class="alert font-bold underline">Click me!</button>
+
+  <astro-heart>
+    <button aria-label="Heart">💜</button> × <span>0</span>
+  </astro-heart>
 </Layout>
 
 <script is:inline={false}>
@@ -76,4 +80,23 @@ const { movies, random, tv } = await getData();
       alert("Button was clicked!");
     });
   });
+
+  // Define the behaviour for our new type of HTML element.
+  class AstroHeart extends HTMLElement {
+    connectedCallback() {
+      let count = 0;
+
+      const heartButton = this.querySelector("button");
+      const countSpan = this.querySelector("span");
+
+      // Each time the button is clicked, update the count.
+      heartButton.addEventListener("click", () => {
+        count++;
+        countSpan.textContent = count.toString();
+      });
+    }
+  }
+
+  // Tell the browser to use our AstroHeart class for <astro-heart> elements.
+  customElements.define("astro-heart", AstroHeart);
 </script>

@@ -1,7 +1,11 @@
 ---
+import { paths } from "@awfe/paths";
+import { Link } from "../../components/link";
 import Layout from "../../layouts/layout.astro";
 
 export const prerender = false;
 ---
 
-<Layout> Movie </Layout>
+<Layout>
+  <Link client:idle href={paths.index}>Home</Link>
+</Layout>
