@@ -1,7 +1,28 @@
 ---
+import { getTMDBContext, search } from "../integrations/tmdb/services";
 import Layout from "../layouts/layout.astro";
 
 export const prerender = false;
+
+const getData = async () => {
+  const url = new URL(Astro.request.url);
+
+  const query = url.searchParams.get("query");
+
+  if (!query) {
+    return { result: null };
+  }
+
+  const context = getTMDBContext();
+  const result = await search({ context, page: 1, query });
+
+  return { query, result };
+};
+
+const { query, result } = await getData();
 ---
 
-<Layout> Search </Layout>
+<Layout>
+  Search
+  <pre>{JSON.stringify({query, result}, null, 2)}</pre>
+</Layout>

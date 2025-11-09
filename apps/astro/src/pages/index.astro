@@ -1,4 +1,10 @@
 ---
+import { paths } from "@awfe/paths";
+import Footer from "../components/footer/footer.astro";
+import MediaCarousel from "../components/media-carousel.astro";
+import MovieHero from "../components/movie-hero.astro";
+import TvHero from "../components/tv-hero.astro";
+import { getListItem } from "../integrations/tmdb/format";
 import {
   getRandomMedia,
   getTMDBContext,
@@ -29,8 +35,34 @@ const { movies, random, tv } = await getData();
 ---
 
 <Layout>
+  <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
+    {
+      random.media_type === "tv" ? (
+        <a href={paths.media("tv", random.id)}>
+          <TvHero media={random} />
+        </a>
+      ) : null
+    }
+    {
+      random.media_type === "movie" ? (
+        <a href={paths.media("movie", random.id)}>
+          <MovieHero media={random} />
+        </a>
+      ) : null
+    }
+    <MediaCarousel
+      collection={movies?.results || []}
+      title={getListItem({ query: "trending", type: "movie" })}
+      viewAllHref={paths.movieCategory("trending")}
+    />
+    <MediaCarousel
+      collection={tv?.results || []}
+      title={getListItem({ query: "trending", type: "tv" })}
+      viewAllHref={paths.tvCategory("trending")}
+    />
+    <Footer />
+  </div>
   <button class="alert font-bold underline">Click me!</button>
-  <pre>{JSON.stringify({movies, random, tv}, null, 2)}</pre>
 </Layout>
 
 <script is:inline={false}>

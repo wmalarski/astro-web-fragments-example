@@ -1,0 +1,44 @@
+---
+import type { MediaBase } from "../integrations/tmdb/types";
+import { MediaCard } from "./media-card";
+
+type Props = {
+  collection: MediaBase[];
+  title: string;
+  viewAllHref: string;
+};
+
+const { collection, title, viewAllHref } = Astro.props;
+---
+
+<section>
+  <div class="flex flex-row items-center px-12 py-2">
+    <h2 class="text-2xl text-white">{title}</h2>
+    <div class="flex-auto"></div>
+    <a
+      class="transition-text opacity-80 duration-100 ease-in-out hover:text-qwik-light-blue hover:opacity-100"
+      href={viewAllHref}
+    >
+      Explore All
+    </a>
+  </div>
+  <div class="relative">
+    <div class="overflow-y-auto px-8 py-4">
+      <div class="flex w-max flex-row gap-2">
+        {
+          collection?.map((media) => (
+            <div>
+              <MediaCard media={media} />
+            </div>
+          ))
+        }
+        <a
+          class="transition-text flex w-44 items-center justify-center duration-100 ease-in-out hover:text-qwik-light-blue"
+          href={viewAllHref}
+        >
+          Explore All
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

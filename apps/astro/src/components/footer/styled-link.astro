@@ -1,0 +1,19 @@
+---
+import clsx from "clsx";
+
+type Props = astroHTML.JSX.AnchorHTMLAttributes;
+
+const props = Astro.props;
+---
+
+<a
+  {...props}
+  class={clsx(
+    "cursor-pointer underline",
+    "focus:outline-none focus:outline-offset-2",
+    "focus-visible:outline-offset-2 focus-visible:outline-2 focus-visible:outline-current",
+    props.class
+  )}
+>
+  <slot />
+</a>

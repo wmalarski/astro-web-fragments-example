@@ -6,6 +6,7 @@
     "@awfe/paths": "workspace:*",
     "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.15.4",
+    "clsx": "^2.1.1",
     "solid-js": "^1.9.10",
     "tailwindcss": "^4.1.17"
   },

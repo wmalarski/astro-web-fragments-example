@@ -1,7 +1,6 @@
-import { Image } from "astro:assets";
 import type { Component } from "solid-js";
-import ImgStars from "./assets/stars.png";
 import ImgStarsFilled from "./assets/stars-filled.png";
+import ImgStars from "./assets/stars.png";
 
 type StarsProps = {
   rating?: number;
@@ -14,11 +13,11 @@ export const Stars: Component<StarsProps> = (props) => {
 
   return (
     <div class="relative flex flex-row items-center gap-2">
-      <Image alt="rating" class="h-3 w-20" src={ImgStars} />
-      <Image
+      <img alt="rating" class="h-3 w-20" src={ImgStars.src} />
+      <img
         alt="rating"
         class="absolute h-3 w-20"
-        src={ImgStarsFilled}
+        src={ImgStarsFilled.src}
         style={style}
       />
       <div class="text-sm opacity-80">{stars}</div>
