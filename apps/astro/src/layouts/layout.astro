@@ -1,16 +1,36 @@
 ---
+import { isFragmentRequest } from "../integrations/web-fragments/is-fragment-request";
 import "../styles/global.css";
+import Navbar from "./navbar/navbar.astro";
+
+const isFragment = isFragmentRequest(Astro.request);
 ---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body class="bg-black text-white">
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Basics</title>
+  </head>
+  {
+    isFragment ? (
+      <body>
+        <div class="bg-black text-white">
+          <slot />
+        </div>
+      </body>
+    ) : (
+      <body data-theme="dark">
+        <div class="flex h-screen w-screen flex-col-reverse md:flex-row">
+          <Navbar />
+          <main class="bg-black text-white w-full max-w-full overflow-x-hidden">
+            <slot />
+          </main>
+        </div>
+      </body>
+    )
+  }
 </html>
