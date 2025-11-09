@@ -10,9 +10,9 @@ export const RoutingProvider = () => {
     const onMessage = (event: MessageEvent) => {
       const { type, href } = event.data;
 
-      console.log("[onMessage]", event);
-
       if (type === "navigate") {
+        console.log("[href]", href);
+
         push(href);
       }
     };

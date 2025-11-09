@@ -17,7 +17,7 @@ const isFragment = isFragmentRequest(Astro.request);
   </head>
   {
     isFragment ? (
-      <body>
+      <body data-theme="dark">
         <div class="bg-black text-white">
           <slot />
         </div>
@@ -34,7 +34,3 @@ const isFragment = isFragmentRequest(Astro.request);
     )
   }
 </html>
-
-<script is:inline define:vars={{ isFragment }}>
-  window.isFragment = isFragment;
-</script>

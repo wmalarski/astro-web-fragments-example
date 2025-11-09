@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { PropsWithChildren } from "react";
+import { AstroScripts } from "../integrations/astro/astro-scripts";
 import { RoutingProvider } from "../integrations/web-fragments/routing-provider";
 import { Navbar } from "../modules/layout/navbar";
 import "./globals.css";
@@ -12,15 +13,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body className="bg-base-200" data-theme="dark">
+      <body className="bg-base-200" data-fragment="true" data-theme="dark">
         <div className="flex h-screen w-screen flex-col-reverse md:flex-row">
           <Navbar />
           <main className="w-full max-w-full overflow-x-hidden">
             {children}
           </main>
         </div>
+        <AstroScripts />
+        <RoutingProvider />
       </body>
-      <RoutingProvider />
     </html>
   );
 }

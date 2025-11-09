@@ -26,6 +26,7 @@
     "build": "next build",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
     "check-types": "next typegen && tsc --noEmit",
+    "clear": "rm -rf node_modules .turbo .open-next .next .wrangler",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "dev": "next dev --port 3002",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
