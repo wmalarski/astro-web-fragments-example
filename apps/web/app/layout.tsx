@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { PropsWithChildren } from "react";
+import { RoutingProvider } from "../integrations/web-fragments/routing-provider";
 import { Navbar } from "../modules/layout/navbar";
 import "./globals.css";
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           </main>
         </div>
       </body>
+      <RoutingProvider />
     </html>
   );
 }

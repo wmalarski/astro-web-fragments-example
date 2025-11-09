@@ -2,6 +2,7 @@ import { paths } from "@awfe/paths";
 import { type Component, createMemo } from "solid-js";
 import { getPoster, getPosterSet } from "../integrations/tmdb/images";
 import type { MediaBase } from "../integrations/tmdb/types";
+import { Link } from "./link.tsx";
 import { Stars } from "./stars/stars";
 
 type MediaCardProps = {
@@ -12,7 +13,7 @@ export const MediaCard: Component<MediaCardProps> = (props) => {
   const heading = createMemo(() => getHeading(props.media));
 
   return (
-    <a
+    <Link
       class="block w-48"
       href={paths.media(props.media.media_type, props.media.id)}
     >
@@ -30,7 +31,7 @@ export const MediaCard: Component<MediaCardProps> = (props) => {
       </div>
       <span>{heading()}</span>
       <Stars rating={props.media.vote_average} />
-    </a>
+    </Link>
   );
 };
 

@@ -34,3 +34,7 @@ const isFragment = isFragmentRequest(Astro.request);
     )
   }
 </html>
+
+<script is:inline define:vars={{ isFragment }}>
+  window.isFragment = isFragment;
+</script>
