@@ -1,6 +1,8 @@
 ---
 import { paths } from "@awfe/paths";
 import { z } from "astro/zod";
+import { MoviesCategoryList } from "../../../components/infinite-lists/movies-category-list";
+import MediaCardList from "../../../components/media-card-list.astro";
 import {
   getMovies,
   getTMDBContext,
@@ -27,19 +29,21 @@ const getData = async () => {
       name === "trending"
         ? await getTrendingMovie({ context, page: 1 })
         : await getMovies({ context, page: 1, query: name });
-    return movies;
+    return { movies, name };
   } catch {
     return null;
   }
 };
 
-const movies = await getData();
+const data = await getData();
 
-if (!movies) {
+if (!data) {
   return Astro.redirect(paths.notFound);
 }
 ---
 
 <Layout>
-  <pre>{JSON.stringify(movies, null, 2)}</pre>
+  <MoviesCategoryList name={data.name} pageCount={data.movies.total_pages}>
+    <MediaCardList collection={data.movies.results ?? []} />
+  </MoviesCategoryList>
 </Layout>

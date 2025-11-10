@@ -1,7 +1,7 @@
 ---
 import type { MediaBase } from "../integrations/tmdb/types";
 import { Link } from "./link.tsx";
-import { MediaCard } from "./media-card.tsx";
+import { MediaCardContent, MediaCardLink } from "./media-card.tsx";
 
 type Props = {
   collection: MediaBase[];
@@ -30,7 +30,13 @@ const { collection, title, viewAllHref } = Astro.props;
         {
           collection?.map((media) => (
             <div>
-              <MediaCard client:idle media={media} />
+              <MediaCardLink
+                client:idle
+                mediaId={media.id}
+                mediaType={media.media_type}
+              >
+                <MediaCardContent media={media} />
+              </MediaCardLink>
             </div>
           ))
         }

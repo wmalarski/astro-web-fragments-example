@@ -1,4 +1,6 @@
 ---
+import { SearchList } from "../components/infinite-lists/search-list";
+import MediaCardList from "../components/media-card-list.astro";
 import { getTMDBContext, search } from "../integrations/tmdb/services";
 import Layout from "../layouts/layout.astro";
 
@@ -23,6 +25,7 @@ const { query, result } = await getData();
 ---
 
 <Layout>
-  Search
-  <pre>{JSON.stringify({query, result}, null, 2)}</pre>
+  <SearchList query={query} pageCount={result?.total_pages}>
+    <MediaCardList collection={result?.results ?? []} />
+  </SearchList>
 </Layout>

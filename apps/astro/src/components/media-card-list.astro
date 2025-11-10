@@ -1,0 +1,18 @@
+---
+import type { MediaBase } from "../integrations/tmdb/types";
+import { MediaCardContent, MediaCardLink } from "./media-card";
+
+type Props = {
+  collection: MediaBase[];
+};
+
+const { collection } = Astro.props;
+---
+
+{
+  collection.map((media) => (
+    <MediaCardLink client:idle mediaId={media.id} mediaType={media.media_type}>
+      <MediaCardContent media={media} />
+    </MediaCardLink>
+  ))
+}

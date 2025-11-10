@@ -1,14 +1,14 @@
-import { type Component, createSignal, For } from "solid-js";
+import { type Component, createSignal, For, type ParentProps } from "solid-js";
 import type { MediaBase } from "../integrations/tmdb/types";
 import { MediaCard } from "./media-card";
 
-type MediaGridProps = {
+type MediaGridProps = ParentProps<{
   collection: MediaBase[];
   currentPage: number;
   onMore?: () => void;
   pageCount: number;
   parentContainer?: Element | null;
-};
+}>;
 
 export const MediaGrid: Component<MediaGridProps> = (props) => {
   const [throttleTimer, setThrottleTimer] = createSignal(false);
@@ -51,6 +51,7 @@ export const MediaGrid: Component<MediaGridProps> = (props) => {
         class="grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-4 p-8"
         onScroll={onScroll}
       >
+        {props.children}
         <For each={props.collection}>
           {(media) => <MediaCard media={media} />}
         </For>

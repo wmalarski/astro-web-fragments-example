@@ -1,5 +1,8 @@
 ---
+import { paths } from "@awfe/paths";
 import { z } from "astro/zod";
+import { GenreList } from "../../../components/infinite-lists/genre-list";
+import MediaCardList from "../../../components/media-card-list.astro";
 import {
   getMediaByGenre,
   getTMDBContext,
@@ -15,22 +18,36 @@ const getData = async () => {
     .safeParseAsync(Astro.params);
 
   if (!parseResult.success) {
-    throw null;
+    return null;
   }
 
   const context = getTMDBContext();
 
-  return getMediaByGenre({
+  const genreId = parseResult.data.genreId;
+
+  const tvs = await getMediaByGenre({
     context,
-    genre: parseResult.data.genreId,
+    genre: genreId,
     media: "tv",
     page: 1,
   });
+
+  return { genreId, tvs };
 };
 
-const movies = await getData();
+const data = await getData();
+
+if (!data) {
+  return Astro.redirect(paths.notFound);
+}
 ---
 
 <Layout>
-  <pre>{JSON.stringify(movies, null, 2)}</pre>
+  <GenreList
+    genreId={data.genreId}
+    mediaType="movie"
+    pageCount={data.tvs.total_pages}
+  >
+    <MediaCardList collection={data.tvs.results ?? []} />
+  </GenreList>
 </Layout>

@@ -1,5 +1,5 @@
 import { paths } from "@awfe/paths";
-import { type Component, createMemo } from "solid-js";
+import { type Component, createMemo, type ParentProps } from "solid-js";
 import { getPoster, getPosterSet } from "../integrations/tmdb/images";
 import type { MediaBase } from "../integrations/tmdb/types";
 import { Link } from "./link.tsx";
@@ -10,13 +10,35 @@ type MediaCardProps = {
 };
 
 export const MediaCard: Component<MediaCardProps> = (props) => {
+  return (
+    <MediaCardLink mediaId={props.media.id} mediaType={props.media.media_type}>
+      <MediaCardContent media={props.media} />
+    </MediaCardLink>
+  );
+};
+
+type MediaCardLinkProps = ParentProps<{
+  mediaId: number;
+  mediaType: MediaBase["media_type"];
+}>;
+
+export const MediaCardLink: Component<MediaCardLinkProps> = (props) => {
+  return (
+    <Link class="block w-48" href={paths.media(props.mediaType, props.mediaId)}>
+      {props.children}
+    </Link>
+  );
+};
+
+type MediaCardContentProps = {
+  media: MediaBase;
+};
+
+export const MediaCardContent: Component<MediaCardContentProps> = (props) => {
   const heading = createMemo(() => getHeading(props.media));
 
   return (
-    <Link
-      class="block w-48"
-      href={paths.media(props.media.media_type, props.media.id)}
-    >
+    <div class="block w-48">
       <div class="scale-95 transition-scale duration-300 ease-in-out hover:scale-100">
         <picture>
           <img
@@ -31,7 +53,7 @@ export const MediaCard: Component<MediaCardProps> = (props) => {
       </div>
       <span>{heading()}</span>
       <Stars rating={props.media.vote_average} />
-    </Link>
+    </div>
   );
 };
 

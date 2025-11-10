@@ -2,6 +2,7 @@
 import { paths } from "@awfe/paths";
 import { z } from "astro/zod";
 import Footer from "../../components/footer/footer.astro";
+import MediaCardList from "../../components/media-card-list.astro";
 import { MediaGrid } from "../../components/media-grid";
 import PersonHero from "../../components/person-hero.astro";
 import { getPerson, getTMDBContext } from "../../integrations/tmdb/services";
@@ -34,19 +35,19 @@ const person = await getData();
 if (!person) {
   return Astro.redirect(paths.notFound);
 }
+
+const collection = [
+  ...(person.combined_credits?.cast || []),
+  ...(person.combined_credits?.crew || []),
+];
 ---
 
 <Layout>
   <div class="max-h-screen overflow-y-scroll flex flex-col">
     <PersonHero person={person} />
-    <MediaGrid
-      collection={[
-        ...(person.combined_credits?.cast || []),
-        ...(person.combined_credits?.crew || []),
-      ]}
-      currentPage={1}
-      pageCount={1}
-    />
+    <MediaGrid collection={[]} currentPage={1} pageCount={1}>
+      <MediaCardList collection={collection} />
+    </MediaGrid>
     <Footer />
   </div>
 </Layout>
