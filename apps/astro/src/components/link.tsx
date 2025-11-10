@@ -1,19 +1,24 @@
 import { isFragmentClient } from "@integrations/web-fragments/is-fragment-client";
 import { sendRoutingMessage } from "@integrations/web-fragments/send-routing-message";
-import type { Component, ComponentProps } from "solid-js";
+import { pathsPrefix } from "@paths";
+import { type Component, type ComponentProps, createMemo } from "solid-js";
 
 type LinkProps = ComponentProps<"a"> & {
   href: string;
 };
 
 export const Link: Component<LinkProps> = (props) => {
+  const href = createMemo(() => props.href.replaceAll(pathsPrefix, ""));
+
   const onClick: LinkProps["onClick"] = (event) => {
+    event.preventDefault();
+
     if (isFragmentClient()) {
-      event.preventDefault();
-      sendRoutingMessage(props.href);
+      sendRoutingMessage(href());
+    } else {
+      window.location.href = props.href;
     }
   };
 
-  // biome-ignore lint/a11y/useValidAnchor: I need to override native handling
-  return <a {...props} onClick={onClick} />;
+  return <a {...props} href={href()} onClick={onClick} />;
 };

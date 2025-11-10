@@ -7,8 +7,9 @@ import { defineConfig, envField } from "astro/config";
 
 export default defineConfig({
   adapter: node({ mode: "standalone" }),
+  base: "_astro",
   build: {
-    assets: "_fragment/astro/assets",
+    assets: "astro/assets",
   },
   env: {
     schema: {

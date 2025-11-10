@@ -1,11 +1,12 @@
 ---
-import { paths } from "@awfe/paths";
 import Footer from "@components/footer/footer.astro";
+import { Link } from "@components/link";
 import MediaCarousel from "@components/media-carousel.astro";
 import MovieHero from "@components/movie-hero.astro";
 import { tmdb } from "@integrations/tmdb";
 import { getListItem } from "@integrations/tmdb/format";
 import Layout from "@layouts/layout.astro";
+import { paths } from "@paths";
 
 export const prerender = false;
 
@@ -32,9 +33,9 @@ const { nowPlaying, popular, random, topRated } = await getData();
   ><div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
     {
       random ? (
-        <a href={paths.media("movie", random.id)}>
+        <Link client:idle href={paths.media("movie", random.id)}>
           <MovieHero media={random} />
-        </a>
+        </Link>
       ) : null
     }
     <MediaCarousel

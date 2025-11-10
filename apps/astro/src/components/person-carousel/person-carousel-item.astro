@@ -1,7 +1,8 @@
 ---
-import { paths } from "@awfe/paths";
+import { Link } from "@components/link";
 import { getProfile, getProfileSet } from "@integrations/tmdb/images";
 import type { Cast, Crew } from "@integrations/tmdb/types";
+import { paths } from "@paths";
 
 type Props = {
   media: Cast | Crew;
@@ -10,7 +11,7 @@ type Props = {
 const { media } = Astro.props;
 ---
 
-<a href={paths.person(media.id)} class="w-48 block">
+<Link client:idle href={paths.person(media.id)} class="w-48 block">
   <div
     class="transition-scale scale-95 duration-300 ease-in-out hover:scale-100"
   >
@@ -26,4 +27,4 @@ const { media } = Astro.props;
     </picture>
   </div>
   <span>{media.name}</span>
-</a>
+</Link>

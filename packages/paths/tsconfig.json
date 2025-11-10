@@ -1,6 +1,0 @@
-{
-  "compilerOptions": { "outDir": "dist" },
-  "exclude": ["node_modules", "dist"],
-  "extends": "@awfe/typescript-config/base.json",
-  "include": ["src"]
-}

@@ -1,11 +1,12 @@
 ---
-import { paths } from "@awfe/paths";
 import Footer from "@components/footer/footer.astro";
+import { Link } from "@components/link";
 import MediaCarousel from "@components/media-carousel.astro";
 import TvHero from "@components/tv-hero.astro";
 import { tmdb } from "@integrations/tmdb";
 import { getListItem } from "@integrations/tmdb/format";
 import Layout from "@layouts/layout.astro";
+import { paths } from "@paths";
 
 export const prerender = false;
 
@@ -31,9 +32,9 @@ const { airingToday, onTheAir, popular, random, topRated } = await getData();
 
 <Layout>
   <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
-    <a href={paths.media("tv", random?.id)}>
+    <Link client:idle href={paths.media("tv", random?.id)}>
       <TvHero media={random} />
-    </a>
+    </Link>
     <MediaCarousel
       collection={popular?.results || []}
       title={getListItem({ query: "popular", type: "tv" })}

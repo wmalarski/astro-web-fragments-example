@@ -1,5 +1,4 @@
 ---
-import { paths } from "@awfe/paths";
 import Footer from "@components/footer/footer.astro";
 import { Link } from "@components/link.tsx";
 import MediaCarousel from "@components/media-carousel.astro";
@@ -9,6 +8,7 @@ import { tmdb } from "@integrations/tmdb";
 import { getListItem } from "@integrations/tmdb/format";
 import type { MovieBase, TvBase } from "@integrations/tmdb/types";
 import Layout from "@layouts/layout.astro";
+import { paths } from "@paths";
 
 export const prerender = false;
 

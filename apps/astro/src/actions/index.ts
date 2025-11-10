@@ -1,15 +1,13 @@
-import { defineAction } from "astro:actions";
-import { z } from "astro:schema";
 import { tmdb } from "@integrations/tmdb";
 import { mediaIdSchema } from "@integrations/valibot/schema";
+import { defineAction } from "astro:actions";
+import { z } from "astro:schema";
 
 const pageSchema = z.coerce.number().int().min(1).default(1);
 
 export const server = {
   loadMoreGenre: defineAction({
     handler(input) {
-      console.log("[loadMoreGenre]", input);
-
       const context = tmdb.getTMDBContext();
 
       return tmdb.getMediaByGenre({

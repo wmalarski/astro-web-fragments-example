@@ -1,6 +1,4 @@
 ---
-import { Image } from "astro:assets";
-import { paths } from "@awfe/paths";
 import {
   formatCurrency,
   formatDate,
@@ -12,7 +10,10 @@ import type {
   MovieExtraDetails,
   TvExtraDetails,
 } from "@integrations/tmdb/types";
+import { paths } from "@paths";
+import { Image } from "astro:assets";
 import ExternalLinks from "./external-links/external-links.astro";
+import { Link } from "./link";
 
 type Props = {
   media: MovieExtraDetails | TvExtraDetails;
@@ -82,7 +83,9 @@ const poster = getPoster(media, "92");
               <div>
                 {directors.map((person, i) => (
                   <>
-                    <a href={paths.person(person.id)}>{person.name}</a>
+                    <Link client:idle href={paths.person(person.id)}>
+                      {person.name}
+                    </Link>
                     {i < directors?.length - 1 ? ", " : ""}
                   </>
                 ))}
@@ -115,9 +118,12 @@ const poster = getPoster(media, "92");
                   (genre, i, arr) =>
                     media.media_type && (
                       <>
-                        <a href={paths.genre(media.media_type, genre.id)}>
+                        <Link
+                          client:idle
+                          href={paths.genre(media.media_type, genre.id)}
+                        >
                           {genre.name}
-                        </a>
+                        </Link>
                         {i < arr.length - 1 ? ", " : ""}
                       </>
                     )

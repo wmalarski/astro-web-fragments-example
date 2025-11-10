@@ -1,5 +1,4 @@
 ---
-import { paths } from "@awfe/paths";
 import Footer from "@components/footer/footer.astro";
 import MediaInfoCard from "@components/media-info-card.astro";
 import PersonCarousel from "@components/person-carousel/person-carousel.astro";
@@ -7,6 +6,7 @@ import TvHero from "@components/tv-hero.astro";
 import { tmdb } from "@integrations/tmdb";
 import { mediaIdSchema } from "@integrations/valibot/schema";
 import Layout from "@layouts/layout.astro";
+import { paths } from "@paths";
 import { z } from "astro/zod";
 
 export const prerender = false;

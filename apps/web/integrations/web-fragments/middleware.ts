@@ -1,9 +1,13 @@
 import { FragmentGateway, getWebMiddleware } from "web-fragments/gateway";
+import { pathsPrefix } from "./paths";
 import type { FragmentId } from "./types";
 
 // Initialize the FragmentGateway
 const gateway = new FragmentGateway({
   piercingStyles: `<style id="fragment-piercing-styles" type="text/css">
+    web-fragment-host {
+      background-color: black;
+    }
     web-fragment-host[data-piercing="true"] {
       position: absolute;
       z-index: 9999999999999999999999999999999;
@@ -44,8 +48,8 @@ entries.forEach((entry) => {
     },
     piercingClassNames: ["homepage"],
     routePatterns: [
-      entry.routePattern,
-      "/_fragment/astro/:_*",
+      `${pathsPrefix}${entry.routePattern}`,
+      "/_astro/astro/:_*",
       "/_actions/:_*",
     ],
   });

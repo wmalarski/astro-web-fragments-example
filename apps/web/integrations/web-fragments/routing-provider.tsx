@@ -11,8 +11,6 @@ export const RoutingProvider = () => {
       const { type, href } = event.data;
 
       if (type === "navigate") {
-        console.log("[href]", href);
-
         push(href);
       }
     };
