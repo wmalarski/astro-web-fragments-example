@@ -43,7 +43,11 @@ entries.forEach((entry) => {
       };
     },
     piercingClassNames: ["homepage"],
-    routePatterns: [entry.routePattern, "/_fragment/astro/:_*"],
+    routePatterns: [
+      entry.routePattern,
+      "/_fragment/astro/:_*",
+      "/_actions/:_*",
+    ],
   });
 });
 
