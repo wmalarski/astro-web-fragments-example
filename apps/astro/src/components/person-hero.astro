@@ -1,0 +1,119 @@
+---
+import { formatDate } from "../integrations/tmdb/format";
+import { getProfile, getProfileSet } from "../integrations/tmdb/images";
+import type { PersonDetails } from "../integrations/tmdb/types";
+import ExternalLinks from "./external-links/external-links.astro";
+
+type Props = {
+  person: PersonDetails;
+};
+
+const { person } = Astro.props;
+
+const calculateAge = (birthday: string, deathday?: string) => {
+  const cutoffDate = deathday ? Number(new Date(deathday)) : Date.now();
+  const ageDifMs = cutoffDate - Number(new Date(birthday));
+  const ageDate = new Date(ageDifMs);
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+};
+---
+
+<section class="flex justify-center p-6">
+  <div class="flex max-w-5xl flex-row items-center gap-8">
+    <div class="hidden grow md:flex">
+      {
+        person.profile_path ? (
+          <div class="min-w-max">
+            <picture>
+              <img
+                width="185"
+                height="278"
+                alt={person.name}
+                class="w-80 text-black"
+                src={getProfile(person, "w45")}
+                srcset={getProfileSet(person)}
+              />
+            </picture>
+          </div>
+        ) : null
+      }
+    </div>
+    <div class="flex flex-col gap-6">
+      <div>
+        <h2 class="mb-4 text-3xl">{person.name}</h2>
+        {
+          person.biography ? (
+            <div class="opacity-80">
+              {person.biography
+                .split("\n")
+                .filter((section) => section !== "")
+                .map((section) => (
+                  <p class="mt-4">{section}</p>
+                ))}
+            </div>
+          ) : null
+        }
+      </div>
+      <div
+        class="grid grid-cols-[max-content_1fr] items-center gap-3 text-sm opacity-80 lg:grid-cols-[max-content_1fr_max-content_1fr]"
+      >
+        {
+          person.known_for_department ? (
+            <>
+              <div>Known For</div>
+              <div>{person.known_for_department}</div>
+            </>
+          ) : null
+        }
+        {
+          person.birthday ? (
+            <>
+              <div>Born</div>
+              <div>
+                {formatDate(person.birthday)}{" "}
+                {!person.deathday ? (
+                  <span>(age {calculateAge(person.birthday)})</span>
+                ) : null}
+              </div>
+            </>
+          ) : null
+        }
+
+        {
+          person.place_of_birth ? (
+            <>
+              <div>Place of Birth</div>
+              <div>{person.place_of_birth}</div>
+            </>
+          ) : null
+        }
+
+        {
+          person.deathday ? (
+            <>
+              <div>Died</div>
+              <div>
+                {formatDate(person.deathday)}{" "}
+                {person.birthday ? (
+                  <span>
+                    age {calculateAge(person.birthday, person.deathday)}
+                  </span>
+                ) : null}
+              </div>
+            </>
+          ) : null
+        }
+      </div>
+
+      <div>
+        <ExternalLinks
+          isPerson
+          links={{
+            ...person.external_ids,
+            homepage: person.homepage,
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</section>
