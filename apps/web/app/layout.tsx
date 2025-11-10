@@ -16,7 +16,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body className="bg-base-200" data-fragment="true" data-theme="dark">
         <div className="flex h-screen w-screen flex-col-reverse md:flex-row">
           <Navbar />
-          <main className="w-full max-w-full overflow-x-hidden">
+          <main className="min-h-screen w-full max-w-full overflow-x-hidden bg-base-200">
             {children}
           </main>
         </div>
