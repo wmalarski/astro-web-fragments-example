@@ -1,7 +1,63 @@
 ---
+import { paths } from "@awfe/paths";
+import Footer from "../../components/footer/footer.astro";
+import MediaCarousel from "../../components/media-carousel.astro";
+import TvHero from "../../components/tv-hero.astro";
+import { getListItem } from "../../integrations/tmdb/format";
+import {
+  getRandomMedia,
+  getTMDBContext,
+  getTvShows,
+} from "../../integrations/tmdb/services";
 import Layout from "../../layouts/layout.astro";
 
 export const prerender = false;
+
+const getData = async () => {
+  const context = getTMDBContext();
+
+  const [popular, topRated, onTheAir, airingToday] = await Promise.all([
+    getTvShows({ context, page: 1, query: "popular" }),
+    getTvShows({ context, page: 1, query: "top_rated" }),
+    getTvShows({ context, page: 1, query: "on_the_air" }),
+    getTvShows({ context, page: 1, query: "airing_today" }),
+  ]);
+
+  const random = getRandomMedia({
+    collections: [popular, topRated, onTheAir, airingToday],
+  });
+
+  return { airingToday, onTheAir, popular, random, topRated };
+};
+
+const { airingToday, onTheAir, popular, random, topRated } = await getData();
 ---
 
-<Layout> Tvs </Layout>
+<Layout>
+  <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
+    <a href={paths.media("tv", random?.id)}>
+      <TvHero media={random} />
+    </a>
+    <MediaCarousel
+      collection={popular?.results || []}
+      title={getListItem({ query: "popular", type: "tv" })}
+      viewAllHref={paths.tvCategory("popular")}
+    />
+    <MediaCarousel
+      collection={topRated?.results || []}
+      title={getListItem({ query: "top_rated", type: "tv" })}
+      viewAllHref={paths.tvCategory("top_rated")}
+    />
+    <MediaCarousel
+      collection={onTheAir?.results || []}
+      title={getListItem({ query: "on_the_air", type: "tv" })}
+      viewAllHref={paths.tvCategory("on_the_air")}
+    />
+    <MediaCarousel
+      collection={airingToday?.results || []}
+      title={getListItem({ query: "airing_today", type: "tv" })}
+      viewAllHref={paths.tvCategory("airing_today")}
+    />
+    <Footer />
+  </div>
+</Layout>

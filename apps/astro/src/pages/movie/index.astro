@@ -1,7 +1,61 @@
 ---
+import { paths } from "@awfe/paths";
+import Footer from "../../components/footer/footer.astro";
+import MediaCarousel from "../../components/media-carousel.astro";
+import MovieHero from "../../components/movie-hero.astro";
+import { getListItem } from "../../integrations/tmdb/format";
+import {
+  getMovies,
+  getRandomMedia,
+  getTMDBContext,
+} from "../../integrations/tmdb/services";
 import Layout from "../../layouts/layout.astro";
 
 export const prerender = false;
+
+const getData = async () => {
+  const context = getTMDBContext();
+
+  const [popular, topRated, nowPlaying] = await Promise.all([
+    getMovies({ context, page: 1, query: "popular" }),
+    getMovies({ context, page: 1, query: "top_rated" }),
+    getMovies({ context, page: 1, query: "now_playing" }),
+  ]);
+
+  const random = getRandomMedia({
+    collections: [popular, topRated, nowPlaying],
+  });
+
+  return { nowPlaying, popular, random, topRated };
+};
+
+const { nowPlaying, popular, random, topRated } = await getData();
 ---
 
-<Layout> Movies </Layout>
+<Layout
+  ><div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
+    {
+      random ? (
+        <a href={paths.media("movie", random.id)}>
+          <MovieHero media={random} />
+        </a>
+      ) : null
+    }
+    <MediaCarousel
+      collection={popular?.results || []}
+      title={getListItem({ query: "popular", type: "movie" })}
+      viewAllHref={paths.movieCategory("popular")}
+    />
+    <MediaCarousel
+      collection={topRated?.results || []}
+      title={getListItem({ query: "top_rated", type: "movie" })}
+      viewAllHref={paths.movieCategory("top_rated")}
+    />
+    <MediaCarousel
+      collection={nowPlaying?.results || []}
+      title={getListItem({ query: "now_playing", type: "movie" })}
+      viewAllHref={paths.movieCategory("now_playing")}
+    />
+    <Footer />
+  </div></Layout
+>
