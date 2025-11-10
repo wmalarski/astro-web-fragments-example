@@ -1,0 +1,31 @@
+---
+import type { Cast, Crew } from "../../integrations/tmdb/types";
+import PersonCarouselItem from "./person-carousel-item.astro";
+
+type Props = {
+  collection: (Cast | Crew)[];
+  title: string;
+};
+
+const { collection, title } = Astro.props;
+---
+
+<section>
+  <div class="flex flex-row items-center px-12 py-2">
+    <h2 class="text-2xl text-white">{title}</h2>
+    <div class="flex-auto"></div>
+  </div>
+  <div class="relative">
+    <div class="overflow-y-auto px-8 py-4">
+      <div class="flex w-max flex-row gap-2">
+        {
+          collection?.map((media) => (
+            <div>
+              <PersonCarouselItem media={media} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

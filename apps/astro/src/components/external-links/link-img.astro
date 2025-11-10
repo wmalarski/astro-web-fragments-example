@@ -1,0 +1,19 @@
+---
+type Props = {
+  href: string;
+  label: string;
+  tag: any;
+};
+
+const { href, label, tag } = Astro.props;
+
+const Tag = tag;
+---
+
+<li>
+  <a aria-label={label} href={href} rel="noopener" target="_blank">
+    <Tag
+      class="scale-95 transition duration-300 ease-in-out hover:scale-110 w-5 h-5"
+    />
+  </a>
+</li>

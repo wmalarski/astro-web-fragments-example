@@ -1,0 +1,166 @@
+---
+import { paths } from "@awfe/paths";
+import { Image } from "astro:assets";
+import {
+  formatCurrency,
+  formatDate,
+  formatLanguage,
+  formatRuntime,
+} from "../integrations/tmdb/format";
+import { getPoster, getPosterSet } from "../integrations/tmdb/images";
+import type {
+  MovieExtraDetails,
+  TvExtraDetails,
+} from "../integrations/tmdb/types";
+import ExternalLinks from "./external-links/external-links.astro";
+
+type Props = {
+  media: MovieExtraDetails | TvExtraDetails;
+};
+
+const { media } = Astro.props;
+
+const directors =
+  media.credits?.crew?.filter((person) => person.job === "Director") || [];
+
+const poster = getPoster(media, "92");
+---
+
+<section class="flex justify-center p-6">
+  <div class="flex max-w-5xl flex-row items-center gap-8">
+    <div class="hidden grow md:flex">
+      <div class="min-w-max">
+        <picture>
+          {
+            poster && (
+              <Image
+                width="342"
+                height="513"
+                alt="Poster"
+                class="h-full w-80 max-w-full object-cover text-black"
+                src={poster}
+                srcset={getPosterSet(media, "342")}
+              />
+            )
+          }
+        </picture>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-6">
+      {
+        media.overview ? (
+          <div>
+            <h2 class="mb-4 text-3xl">Storyline</h2>
+            <div class="opacity-80">{media.overview}</div>
+          </div>
+        ) : null
+      }
+      <div
+        class="grid grid-cols-[max-content_1fr] items-center gap-3 text-sm opacity-80 lg:grid-cols-[max-content_1fr_max-content_1fr]"
+      >
+        {
+          media.media_type === "movie" && media.release_date ? (
+            <>
+              <div>Released</div>
+              <div>{formatDate(media.release_date)}</div>
+            </>
+          ) : null
+        }
+        {
+          media.media_type === "movie" && media.runtime ? (
+            <>
+              <div>Runtime</div>
+              <div>{formatRuntime(media.runtime)}</div>
+            </>
+          ) : null
+        }
+        {
+          directors && directors.length > 0 ? (
+            <>
+              <div>Director</div>
+              <div>
+                {directors.map((person, i) => (
+                  <>
+                    <a href={paths.person(person.id)}>{person.name}</a>
+                    {i < directors?.length - 1 ? ", " : ""}
+                  </>
+                ))}
+              </div>
+            </>
+          ) : null
+        }
+        {
+          media.media_type === "movie" && media.budget ? (
+            <>
+              <div>Budget</div>
+              <div>{formatCurrency(media.budget)}</div>
+            </>
+          ) : null
+        }
+        {
+          media.media_type === "movie" && media.revenue ? (
+            <>
+              <div>Revenue</div>
+              <div>{formatCurrency(media.revenue)}</div>
+            </>
+          ) : null
+        }
+        {
+          media.media_type && media.genres ? (
+            <>
+              <div>Genre</div>
+              <div>
+                {media.genres.map(
+                  (genre, i, arr) =>
+                    media.media_type && (
+                      <>
+                        <a href={paths.genre(media.media_type, genre.id)}>
+                          {genre.name}
+                        </a>
+                        {i < arr.length - 1 ? ", " : ""}
+                      </>
+                    )
+                )}
+              </div>
+            </>
+          ) : null
+        }
+        {
+          media.status ? (
+            <>
+              <div>Status</div>
+              <div>{media.status}</div>
+            </>
+          ) : null
+        }
+        {
+          media.original_language ? (
+            <>
+              <div>Language</div>
+              <div>{formatLanguage(media.original_language)}</div>
+            </>
+          ) : null
+        }
+        {
+          media.production_companies ? (
+            <>
+              <div>Production</div>
+              <div>
+                {media.production_companies.map((c) => c.name).join(", ")}
+              </div>
+            </>
+          ) : null
+        }
+      </div>
+      <div>
+        <ExternalLinks
+          links={{
+            ...media.external_ids,
+            homepage: media.homepage,
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,61 @@
+---
+import ImgFacebook from "./assets/facebook.svg";
+import ImgImdb from "./assets/imdb.svg";
+import ImgInstagram from "./assets/instagram.svg";
+import ImgLink from "./assets/link.svg";
+import ImgTwitter from "./assets/twitter.svg";
+import LinkImg from "./link-img.astro";
+
+type Props = {
+  links: Record<string, string | undefined>;
+  isPerson?: boolean;
+};
+
+const { links, isPerson } = Astro.props;
+---
+
+<ul class="flex flex-row gap-4 opacity-80">
+  {
+    links.twitter_id ? (
+      <LinkImg
+        tag={ImgTwitter}
+        label="Twitter account"
+        href={`https://twitter.com/${links.twitter_id}`}
+      />
+    ) : null
+  }
+  {
+    links.facebook_id ? (
+      <LinkImg
+        label="Facebook account"
+        href={`https://facebook.com/${links.facebook_id}`}
+        tag={ImgFacebook}
+      />
+    ) : null
+  }
+  {
+    links.instagram_id ? (
+      <LinkImg
+        label="Instagram account"
+        href={`https://instagram.com/${links.instagram_id}`}
+        tag={ImgInstagram}
+      />
+    ) : null
+  }
+  {
+    links.imdb_id ? (
+      <LinkImg
+        label="IMDb account"
+        href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${
+          links.imdb_id
+        }`}
+        tag={ImgImdb}
+      />
+    ) : null
+  }
+  {
+    links.homepage ? (
+      <LinkImg label="Homepage" href={links.homepage} tag={ImgLink} />
+    ) : null
+  }
+</ul>

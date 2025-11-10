@@ -1,11 +1,53 @@
 ---
 import { paths } from "@awfe/paths";
-import { Link } from "../../components/link";
+import { z } from "astro/zod";
+import Footer from "../../components/footer/footer.astro";
+import MediaInfoCard from "../../components/media-info-card.astro";
+import MovieHero from "../../components/movie-hero.astro";
+import PersonCarousel from "../../components/person-carousel/person-carousel.astro";
+import { getMovie, getTMDBContext } from "../../integrations/tmdb/services";
+import { mediaId } from "../../integrations/valibot/schema";
 import Layout from "../../layouts/layout.astro";
 
 export const prerender = false;
+
+const getData = async () => {
+  const parseResult = await z
+    .object({ movieId: mediaId })
+    .safeParseAsync(Astro.params);
+
+  if (!parseResult.success) {
+    return null;
+  }
+
+  const context = getTMDBContext();
+
+  try {
+    const movie = await getMovie({
+      context,
+      id: parseResult.data.movieId,
+    });
+
+    return movie;
+  } catch {
+    throw null;
+  }
+};
+
+const movie = await getData();
+
+if (!movie) {
+  return Astro.redirect(paths.notFound);
+}
 ---
 
 <Layout>
-  <Link client:idle href={paths.index}>Home</Link>
+  <div class="flex max-h-screen flex-col gap-4 overflow-y-scroll">
+    <MovieHero media={movie} />
+    <div class="flex flex-col">
+      <MediaInfoCard media={movie} />
+      <PersonCarousel collection={movie.credits?.cast || []} title="Cast" />
+    </div>
+    <Footer />
+  </div>
 </Layout>
