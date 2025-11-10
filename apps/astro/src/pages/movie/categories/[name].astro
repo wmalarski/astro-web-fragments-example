@@ -43,7 +43,11 @@ if (!data) {
 ---
 
 <Layout>
-  <MoviesCategoryList name={data.name} pageCount={data.movies.total_pages}>
+  <MoviesCategoryList
+    client:idle
+    name={data.name}
+    pageCount={data.movies.total_pages}
+  >
     <MediaCardList collection={data.movies.results ?? []} />
   </MoviesCategoryList>
 </Layout>

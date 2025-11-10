@@ -32,7 +32,7 @@ export const SearchList: Component<SearchListProps> = (props) => {
       ref={setContainer}
     >
       <form class="flex flex-row justify-start gap-4 bg-base-300 p-4">
-        <ImgMagnifier aria-label="Search" class="h-6 w-6" />
+        <img aria-label="Search" class="h-6 w-6" src={ImgMagnifier.src} />
         <input
           aria-label="query"
           class="input"

@@ -25,7 +25,7 @@ const { query, result } = await getData();
 ---
 
 <Layout>
-  <SearchList query={query} pageCount={result?.total_pages}>
+  <SearchList client:idle query={query} pageCount={result?.total_pages}>
     <MediaCardList collection={result?.results ?? []} />
   </SearchList>
 </Layout>

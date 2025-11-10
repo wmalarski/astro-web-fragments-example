@@ -16,6 +16,8 @@ const pageSchema = z.coerce.number().int().min(1).default(1);
 export const server = {
   loadMoreGenre: defineAction({
     handler(input) {
+      console.log("[loadMoreGenre]", input);
+
       const context = getTMDBContext();
 
       return getMediaByGenre({

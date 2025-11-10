@@ -44,9 +44,11 @@ if (!data) {
 
 <Layout>
   <GenreList
+    client:idle
     genreId={data.genreId}
     mediaType="movie"
     pageCount={data.movies.total_pages}
+    name={data.movies.genre?.name}
   >
     <MediaCardList collection={data.movies.results ?? []} />
   </GenreList>

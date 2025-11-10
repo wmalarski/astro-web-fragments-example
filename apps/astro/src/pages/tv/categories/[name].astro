@@ -43,7 +43,7 @@ if (!data) {
 ---
 
 <Layout>
-  <TvCategoryList name={data.name} pageCount={data.tvs.total_pages}>
+  <TvCategoryList client:idle name={data.name} pageCount={data.tvs.total_pages}>
     <MediaCardList collection={data.tvs.results ?? []} />
   </TvCategoryList>
 </Layout>
