@@ -1,10 +1,10 @@
 ---
 import { paths } from "@awfe/paths";
+import { TvCategoryList } from "@components/infinite-lists/tv-category-list";
+import MediaCardList from "@components/media-card-list.astro";
+import { tmdb } from "@integrations/tmdb";
+import Layout from "@layouts/layout.astro";
 import { z } from "astro/zod";
-import { TvCategoryList } from "../../../components/infinite-lists/tv-category-list";
-import MediaCardList from "../../../components/media-card-list.astro";
-import { tmdb } from "../../../integrations/tmdb";
-import Layout from "../../../layouts/layout.astro";
 
 export const prerender = false;
 

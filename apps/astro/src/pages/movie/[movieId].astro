@@ -1,13 +1,13 @@
 ---
 import { paths } from "@awfe/paths";
+import Footer from "@components/footer/footer.astro";
+import MediaInfoCard from "@components/media-info-card.astro";
+import MovieHero from "@components/movie-hero.astro";
+import PersonCarousel from "@components/person-carousel/person-carousel.astro";
+import { tmdb } from "@integrations/tmdb";
+import { mediaIdSchema } from "@integrations/valibot/schema";
+import Layout from "@layouts/layout.astro";
 import { z } from "astro/zod";
-import Footer from "../../components/footer/footer.astro";
-import MediaInfoCard from "../../components/media-info-card.astro";
-import MovieHero from "../../components/movie-hero.astro";
-import PersonCarousel from "../../components/person-carousel/person-carousel.astro";
-import { tmdb } from "../../integrations/tmdb";
-import { mediaIdSchema } from "../../integrations/valibot/schema";
-import Layout from "../../layouts/layout.astro";
 
 export const prerender = false;
 

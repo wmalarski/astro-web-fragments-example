@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
-    "jsxImportSource": "solid-js"
+    "jsxImportSource": "solid-js",
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@integrations/*": ["./src/integrations/*"],
+      "@layouts/*": ["./src/layouts/*"]
+    }
   },
   "exclude": ["dist"],
   "extends": "astro/tsconfigs/strict",

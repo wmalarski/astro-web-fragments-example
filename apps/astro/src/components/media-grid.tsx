@@ -1,3 +1,4 @@
+import type { MediaBase } from "@integrations/tmdb/types";
 import {
   type Component,
   createEffect,
@@ -6,7 +7,6 @@ import {
   onCleanup,
   type ParentProps,
 } from "solid-js";
-import type { MediaBase } from "../integrations/tmdb/types";
 import { MediaCard } from "./media-card";
 
 type MediaGridProps = ParentProps<{

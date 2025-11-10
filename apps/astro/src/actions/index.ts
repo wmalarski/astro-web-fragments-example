@@ -1,7 +1,7 @@
 import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
-import { tmdb } from "../integrations/tmdb";
-import { mediaIdSchema } from "../integrations/valibot/schema";
+import { tmdb } from "@integrations/tmdb";
+import { mediaIdSchema } from "@integrations/valibot/schema";
 
 const pageSchema = z.coerce.number().int().min(1).default(1);
 

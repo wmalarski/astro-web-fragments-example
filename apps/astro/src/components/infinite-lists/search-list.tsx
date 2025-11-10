@@ -1,6 +1,6 @@
 import { actions } from "astro:actions";
+import type { MediaBase } from "@integrations/tmdb/types";
 import { type Component, createSignal, type ParentProps } from "solid-js";
-import type { MediaBase } from "../../integrations/tmdb/types";
 import { MediaGrid } from "../media-grid";
 import ImgMagnifier from "./assets/magnifier.svg";
 

@@ -1,6 +1,6 @@
+import { isFragmentClient } from "@integrations/web-fragments/is-fragment-client";
+import { sendRoutingMessage } from "@integrations/web-fragments/send-routing-message";
 import type { Component, ComponentProps } from "solid-js";
-import { isFragmentClient } from "../integrations/web-fragments/is-fragment-client";
-import { sendRoutingMessage } from "../integrations/web-fragments/send-routing-message";
 
 type LinkProps = ComponentProps<"a"> & {
   href: string;

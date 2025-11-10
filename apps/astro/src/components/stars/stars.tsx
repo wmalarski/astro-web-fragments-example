@@ -1,6 +1,6 @@
 import type { Component } from "solid-js";
-import ImgStarsFilled from "./assets/stars-filled.png";
 import ImgStars from "./assets/stars.png";
+import ImgStarsFilled from "./assets/stars-filled.png";
 
 type StarsProps = {
   rating?: number;

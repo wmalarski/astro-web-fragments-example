@@ -1,17 +1,17 @@
 ---
-import { paths } from "@awfe/paths";
 import { Image } from "astro:assets";
+import { paths } from "@awfe/paths";
 import {
   formatCurrency,
   formatDate,
   formatLanguage,
   formatRuntime,
-} from "../integrations/tmdb/format";
-import { getPoster, getPosterSet } from "../integrations/tmdb/images";
+} from "@integrations/tmdb/format";
+import { getPoster, getPosterSet } from "@integrations/tmdb/images";
 import type {
   MovieExtraDetails,
   TvExtraDetails,
-} from "../integrations/tmdb/types";
+} from "@integrations/tmdb/types";
 import ExternalLinks from "./external-links/external-links.astro";
 
 type Props = {

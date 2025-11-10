@@ -1,11 +1,11 @@
 ---
 import { paths } from "@awfe/paths";
+import { GenreList } from "@components/infinite-lists/genre-list";
+import MediaCardList from "@components/media-card-list.astro";
+import { tmdb } from "@integrations/tmdb";
+import { mediaIdSchema } from "@integrations/valibot/schema";
+import Layout from "@layouts/layout.astro";
 import { z } from "astro/zod";
-import { GenreList } from "../../../components/infinite-lists/genre-list";
-import MediaCardList from "../../../components/media-card-list.astro";
-import { tmdb } from "../../../integrations/tmdb";
-import { mediaIdSchema } from "../../../integrations/valibot/schema";
-import Layout from "../../../layouts/layout.astro";
 
 export const prerender = false;
 

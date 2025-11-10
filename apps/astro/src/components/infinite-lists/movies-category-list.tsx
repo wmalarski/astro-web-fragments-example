@@ -1,7 +1,7 @@
 import { actions } from "astro:actions";
+import { getListItem } from "@integrations/tmdb/format";
+import type { MediaBase } from "@integrations/tmdb/types";
 import { type Component, createSignal, type ParentProps } from "solid-js";
-import { getListItem } from "../../integrations/tmdb/format";
-import type { MediaBase } from "../../integrations/tmdb/types";
 import { MediaGrid } from "../media-grid";
 
 type MoviesCategoryListProps = ParentProps<{

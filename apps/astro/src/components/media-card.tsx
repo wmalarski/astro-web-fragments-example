@@ -1,7 +1,7 @@
 import { paths } from "@awfe/paths";
+import { getPoster, getPosterSet } from "@integrations/tmdb/images";
+import type { MediaBase } from "@integrations/tmdb/types";
 import { type Component, createMemo, type ParentProps } from "solid-js";
-import { getPoster, getPosterSet } from "../integrations/tmdb/images";
-import type { MediaBase } from "../integrations/tmdb/types";
 import { Link } from "./link.tsx";
 import { Stars } from "./stars/stars";
 
