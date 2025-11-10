@@ -1,7 +1,36 @@
 ---
+import { z } from "astro/zod";
+import {
+  getMediaByGenre,
+  getTMDBContext,
+} from "../../../integrations/tmdb/services";
+import { mediaIdSchema } from "../../../integrations/valibot/schema";
 import Layout from "../../../layouts/layout.astro";
 
 export const prerender = false;
+
+const getData = async () => {
+  const parseResult = await z
+    .object({ genreId: mediaIdSchema })
+    .safeParseAsync(Astro.params);
+
+  if (!parseResult.success) {
+    throw null;
+  }
+
+  const context = getTMDBContext();
+
+  return getMediaByGenre({
+    context,
+    genre: parseResult.data.genreId,
+    media: "tv",
+    page: 1,
+  });
+};
+
+const movies = await getData();
 ---
 
-<Layout> Genre Tv </Layout>
+<Layout>
+  <pre>{JSON.stringify(movies, null, 2)}</pre>
+</Layout>

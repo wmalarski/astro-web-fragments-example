@@ -32,7 +32,7 @@ const getData = async () => {
 const person = await getData();
 
 if (!person) {
-  throw Astro.redirect(paths.notFound);
+  return Astro.redirect(paths.notFound);
 }
 ---
 

@@ -1,7 +1,45 @@
 ---
+import { paths } from "@awfe/paths";
+import { z } from "astro/zod";
+import {
+  getMovies,
+  getTMDBContext,
+  getTrendingMovie,
+} from "../../../integrations/tmdb/services";
 import Layout from "../../../layouts/layout.astro";
 
 export const prerender = false;
+
+const getData = async () => {
+  const parseResult = await z
+    .object({ name: z.string().min(1) })
+    .safeParseAsync(Astro.params);
+
+  if (!parseResult.success) {
+    return null;
+  }
+
+  const context = getTMDBContext();
+
+  try {
+    const name = parseResult.data.name;
+    const movies =
+      name === "trending"
+        ? await getTrendingMovie({ context, page: 1 })
+        : await getMovies({ context, page: 1, query: name });
+    return movies;
+  } catch {
+    return null;
+  }
+};
+
+const movies = await getData();
+
+if (!movies) {
+  return Astro.redirect(paths.notFound);
+}
 ---
 
-<Layout> Movie Categories Name </Layout>
+<Layout>
+  <pre>{JSON.stringify(movies, null, 2)}</pre>
+</Layout>

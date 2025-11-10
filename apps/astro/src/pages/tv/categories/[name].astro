@@ -1,7 +1,45 @@
 ---
+import { paths } from "@awfe/paths";
+import { z } from "astro/zod";
+import {
+  getTMDBContext,
+  getTrendingTv,
+  getTvShows,
+} from "../../../integrations/tmdb/services";
 import Layout from "../../../layouts/layout.astro";
 
 export const prerender = false;
+
+const getData = async () => {
+  const parseResult = await z
+    .object({ name: z.string().min(1) })
+    .safeParseAsync(Astro.params);
+
+  if (!parseResult.success) {
+    return null;
+  }
+
+  const context = getTMDBContext();
+
+  try {
+    const name = parseResult.data.name;
+    const tvs =
+      name === "trending"
+        ? await getTrendingTv({ context, page: 1 })
+        : await getTvShows({ context, page: 1, query: name });
+    return tvs;
+  } catch {
+    return null;
+  }
+};
+
+const tvs = await getData();
+
+if (!tvs) {
+  return Astro.redirect(paths.notFound);
+}
 ---
 
-<Layout> Tv Categories Name </Layout>
+<Layout>
+  <pre>{JSON.stringify(tvs, null, 2)}</pre>
+</Layout>
