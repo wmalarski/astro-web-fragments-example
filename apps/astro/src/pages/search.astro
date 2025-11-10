@@ -1,7 +1,7 @@
 ---
 import { SearchList } from "../components/infinite-lists/search-list";
 import MediaCardList from "../components/media-card-list.astro";
-import { getTMDBContext, search } from "../integrations/tmdb/services";
+import { tmdb } from "../integrations/tmdb";
 import Layout from "../layouts/layout.astro";
 
 export const prerender = false;
@@ -15,8 +15,8 @@ const getData = async () => {
     return { result: null };
   }
 
-  const context = getTMDBContext();
-  const result = await search({ context, page: 1, query });
+  const context = tmdb.getTMDBContext();
+  const result = await tmdb.search({ context, page: 1, query });
 
   return { query, result };
 };

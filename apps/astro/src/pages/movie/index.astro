@@ -3,26 +3,22 @@ import { paths } from "@awfe/paths";
 import Footer from "../../components/footer/footer.astro";
 import MediaCarousel from "../../components/media-carousel.astro";
 import MovieHero from "../../components/movie-hero.astro";
+import { tmdb } from "../../integrations/tmdb";
 import { getListItem } from "../../integrations/tmdb/format";
-import {
-  getMovies,
-  getRandomMedia,
-  getTMDBContext,
-} from "../../integrations/tmdb/services";
 import Layout from "../../layouts/layout.astro";
 
 export const prerender = false;
 
 const getData = async () => {
-  const context = getTMDBContext();
+  const context = tmdb.getTMDBContext();
 
   const [popular, topRated, nowPlaying] = await Promise.all([
-    getMovies({ context, page: 1, query: "popular" }),
-    getMovies({ context, page: 1, query: "top_rated" }),
-    getMovies({ context, page: 1, query: "now_playing" }),
+    tmdb.getMovies({ context, page: 1, query: "popular" }),
+    tmdb.getMovies({ context, page: 1, query: "top_rated" }),
+    tmdb.getMovies({ context, page: 1, query: "now_playing" }),
   ]);
 
-  const random = getRandomMedia({
+  const random = tmdb.getRandomMedia({
     collections: [popular, topRated, nowPlaying],
   });
 

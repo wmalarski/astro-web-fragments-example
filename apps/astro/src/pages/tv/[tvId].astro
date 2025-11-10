@@ -5,7 +5,7 @@ import Footer from "../../components/footer/footer.astro";
 import MediaInfoCard from "../../components/media-info-card.astro";
 import PersonCarousel from "../../components/person-carousel/person-carousel.astro";
 import TvHero from "../../components/tv-hero.astro";
-import { getTMDBContext, getTvShow } from "../../integrations/tmdb/services";
+import { tmdb } from "../../integrations/tmdb";
 import { mediaIdSchema } from "../../integrations/valibot/schema";
 import Layout from "../../layouts/layout.astro";
 
@@ -20,10 +20,10 @@ const getData = async () => {
     return null;
   }
 
-  const context = getTMDBContext();
+  const context = tmdb.getTMDBContext();
 
   try {
-    const tvShow = await getTvShow({
+    const tvShow = await tmdb.getTvShow({
       context,
       id: parseResult.data.tvId,
     });

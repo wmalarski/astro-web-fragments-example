@@ -5,7 +5,7 @@ import Footer from "../../components/footer/footer.astro";
 import MediaInfoCard from "../../components/media-info-card.astro";
 import MovieHero from "../../components/movie-hero.astro";
 import PersonCarousel from "../../components/person-carousel/person-carousel.astro";
-import { getMovie, getTMDBContext } from "../../integrations/tmdb/services";
+import { tmdb } from "../../integrations/tmdb";
 import { mediaIdSchema } from "../../integrations/valibot/schema";
 import Layout from "../../layouts/layout.astro";
 
@@ -20,10 +20,10 @@ const getData = async () => {
     return null;
   }
 
-  const context = getTMDBContext();
+  const context = tmdb.getTMDBContext();
 
   try {
-    const movie = await getMovie({
+    const movie = await tmdb.getMovie({
       context,
       id: parseResult.data.movieId,
     });

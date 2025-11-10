@@ -5,7 +5,7 @@ import Footer from "../../components/footer/footer.astro";
 import MediaCardList from "../../components/media-card-list.astro";
 import { MediaGrid } from "../../components/media-grid";
 import PersonHero from "../../components/person-hero.astro";
-import { getPerson, getTMDBContext } from "../../integrations/tmdb/services";
+import { tmdb } from "../../integrations/tmdb";
 import { mediaIdSchema } from "../../integrations/valibot/schema";
 import Layout from "../../layouts/layout.astro";
 
@@ -20,10 +20,13 @@ const getData = async () => {
     return null;
   }
 
-  const context = getTMDBContext();
+  const context = tmdb.getTMDBContext();
 
   try {
-    const person = await getPerson({ context, id: parseResult.data.personId });
+    const person = await tmdb.getPerson({
+      context,
+      id: parseResult.data.personId,
+    });
     return person;
   } catch {
     return null;

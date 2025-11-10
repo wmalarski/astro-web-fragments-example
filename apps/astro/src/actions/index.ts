@@ -1,14 +1,6 @@
 import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
-import {
-  getMediaByGenre,
-  getMovies,
-  getTMDBContext,
-  getTrendingMovie,
-  getTrendingTv,
-  getTvShows,
-  search,
-} from "../integrations/tmdb/services";
+import { tmdb } from "../integrations/tmdb";
 import { mediaIdSchema } from "../integrations/valibot/schema";
 
 const pageSchema = z.coerce.number().int().min(1).default(1);
@@ -18,9 +10,9 @@ export const server = {
     handler(input) {
       console.log("[loadMoreGenre]", input);
 
-      const context = getTMDBContext();
+      const context = tmdb.getTMDBContext();
 
-      return getMediaByGenre({
+      return tmdb.getMediaByGenre({
         context,
         genre: input.genreId,
         media: input.mediaType,
@@ -35,11 +27,11 @@ export const server = {
   }),
   loadMoreMovieCategory: defineAction({
     handler(input) {
-      const context = getTMDBContext();
+      const context = tmdb.getTMDBContext();
 
       return input.name === "trending"
-        ? getTrendingMovie({ context, page: input.page })
-        : getMovies({ context, page: input.page, query: input.name });
+        ? tmdb.getTrendingMovie({ context, page: input.page })
+        : tmdb.getMovies({ context, page: input.page, query: input.name });
     },
     input: z.object({
       name: z.string().min(1),
@@ -48,9 +40,9 @@ export const server = {
   }),
   loadMoreSearch: defineAction({
     handler(input) {
-      const context = getTMDBContext();
+      const context = tmdb.getTMDBContext();
 
-      return search({ context, ...input });
+      return tmdb.search({ context, ...input });
     },
     input: z.object({
       page: pageSchema,
@@ -59,11 +51,11 @@ export const server = {
   }),
   loadMoreTvCategory: defineAction({
     handler(input) {
-      const context = getTMDBContext();
+      const context = tmdb.getTMDBContext();
 
       return input.name === "trending"
-        ? getTrendingTv({ context, page: input.page })
-        : getTvShows({ context, page: input.page, query: input.name });
+        ? tmdb.getTrendingTv({ context, page: input.page })
+        : tmdb.getTvShows({ context, page: input.page, query: input.name });
     },
     input: z.object({
       name: z.string().min(1),

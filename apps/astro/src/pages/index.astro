@@ -5,27 +5,22 @@ import { Link } from "../components/link.tsx";
 import MediaCarousel from "../components/media-carousel.astro";
 import MovieHero from "../components/movie-hero.astro";
 import TvHero from "../components/tv-hero.astro";
+import { tmdb } from "../integrations/tmdb";
 import { getListItem } from "../integrations/tmdb/format";
-import {
-  getRandomMedia,
-  getTMDBContext,
-  getTrendingMovie,
-  getTrendingTv,
-} from "../integrations/tmdb/services";
 import type { MovieBase, TvBase } from "../integrations/tmdb/types";
 import Layout from "../layouts/layout.astro";
 
 export const prerender = false;
 
 const getData = async () => {
-  const context = getTMDBContext();
+  const context = tmdb.getTMDBContext();
 
   const [movies, tv] = await Promise.all([
-    getTrendingMovie({ context, page: 1 }),
-    getTrendingTv({ context, page: 1 }),
+    tmdb.getTrendingMovie({ context, page: 1 }),
+    tmdb.getTrendingTv({ context, page: 1 }),
   ]);
 
-  const random = getRandomMedia<MovieBase | TvBase>({
+  const random = tmdb.getRandomMedia<MovieBase | TvBase>({
     collections: [tv, movies],
   });
 

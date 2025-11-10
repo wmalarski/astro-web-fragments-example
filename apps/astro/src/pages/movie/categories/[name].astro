@@ -3,11 +3,7 @@ import { paths } from "@awfe/paths";
 import { z } from "astro/zod";
 import { MoviesCategoryList } from "../../../components/infinite-lists/movies-category-list";
 import MediaCardList from "../../../components/media-card-list.astro";
-import {
-  getMovies,
-  getTMDBContext,
-  getTrendingMovie,
-} from "../../../integrations/tmdb/services";
+import { tmdb } from "../../../integrations/tmdb";
 import Layout from "../../../layouts/layout.astro";
 
 export const prerender = false;
@@ -21,14 +17,14 @@ const getData = async () => {
     return null;
   }
 
-  const context = getTMDBContext();
+  const context = tmdb.getTMDBContext();
 
   try {
     const name = parseResult.data.name;
     const movies =
       name === "trending"
-        ? await getTrendingMovie({ context, page: 1 })
-        : await getMovies({ context, page: 1, query: name });
+        ? await tmdb.getTrendingMovie({ context, page: 1 })
+        : await tmdb.getMovies({ context, page: 1, query: name });
     return { movies, name };
   } catch {
     return null;
