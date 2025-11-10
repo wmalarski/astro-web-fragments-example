@@ -6,14 +6,14 @@ import MediaInfoCard from "../../components/media-info-card.astro";
 import MovieHero from "../../components/movie-hero.astro";
 import PersonCarousel from "../../components/person-carousel/person-carousel.astro";
 import { getMovie, getTMDBContext } from "../../integrations/tmdb/services";
-import { mediaId } from "../../integrations/valibot/schema";
+import { mediaIdSchema } from "../../integrations/valibot/schema";
 import Layout from "../../layouts/layout.astro";
 
 export const prerender = false;
 
 const getData = async () => {
   const parseResult = await z
-    .object({ movieId: mediaId })
+    .object({ movieId: mediaIdSchema })
     .safeParseAsync(Astro.params);
 
   if (!parseResult.success) {

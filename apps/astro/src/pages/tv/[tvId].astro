@@ -1,7 +1,51 @@
 ---
+import { paths } from "@awfe/paths";
+import { z } from "astro/zod";
+import Footer from "../../components/footer/footer.astro";
+import MediaInfoCard from "../../components/media-info-card.astro";
+import PersonCarousel from "../../components/person-carousel/person-carousel.astro";
+import TvHero from "../../components/tv-hero.astro";
+import { getTMDBContext, getTvShow } from "../../integrations/tmdb/services";
+import { mediaIdSchema } from "../../integrations/valibot/schema";
 import Layout from "../../layouts/layout.astro";
 
 export const prerender = false;
+
+const getData = async () => {
+  const parseResult = await z
+    .object({ tvId: mediaIdSchema })
+    .safeParseAsync(Astro.params);
+
+  if (!parseResult.success) {
+    return null;
+  }
+
+  const context = getTMDBContext();
+
+  try {
+    const tvShow = await getTvShow({
+      context,
+      id: parseResult.data.tvId,
+    });
+
+    return tvShow;
+  } catch {
+    throw null;
+  }
+};
+
+const tvShow = await getData();
+
+if (!tvShow) {
+  return Astro.redirect(paths.notFound);
+}
 ---
 
-<Layout> Tv </Layout>
+<Layout>
+  <div class="flex max-h-screen flex-col overflow-y-scroll">
+    <TvHero media={tvShow} />
+    <MediaInfoCard media={tvShow} />
+    <PersonCarousel collection={tvShow?.credits?.cast || []} title="Cast" />
+    <Footer />
+  </div>
+</Layout>
